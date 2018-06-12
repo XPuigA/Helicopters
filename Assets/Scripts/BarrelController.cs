@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BarrelController : MonoBehaviour, Hittable {
 
+    private SpriteRenderer spriteRenderer;
+
 	// Use this for initialization
 	void Start () {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -35,7 +37,15 @@ public class BarrelController : MonoBehaviour, Hittable {
 
     public void Hit(GameObject toInstantiate)
     {
-        Instantiate(toInstantiate, transform);
+        toInstantiate = Instantiate(toInstantiate, transform);
+        SpriteRenderer toInstantiateRenderer = toInstantiate.GetComponent<SpriteRenderer>();
+        float sizeX = spriteRenderer.bounds.size[0] - toInstantiateRenderer.bounds.size[0];
+        float sizeY = spriteRenderer.bounds.size[1] - toInstantiateRenderer.bounds.size[1];
+        float x = Random.Range(-sizeX, sizeX);
+        float y = Random.Range(-sizeY, sizeY);
+
+        toInstantiate.transform.localPosition = new Vector3(x, y, 0f);
+        
     }
 
 }
