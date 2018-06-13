@@ -16,23 +16,27 @@ public class BarrelController : MonoBehaviour, Hittable {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Enter");
+        if (other.gameObject.GetComponent<GunController>() != null)
+        {
+            other.gameObject.GetComponent<GunController>().Visit(gameObject);
+        }        
+        else if (other.gameObject.GetComponent<Projectile>() != null)
+        {
+            other.gameObject.GetComponent<Projectile>().Visit(gameObject);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Stay");
+        //Debug.Log("Stay");
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exit");
-        if (other.gameObject.GetComponent<GunController>() != null)
-        {
-            other.gameObject.GetComponent<GunController>().Visit(gameObject);
-        }
+        //Debug.Log("Exit");
     }
 
     public void Hit(GameObject toInstantiate)
@@ -44,8 +48,7 @@ public class BarrelController : MonoBehaviour, Hittable {
         float x = Random.Range(-sizeX, sizeX);
         float y = Random.Range(-sizeY, sizeY);
 
-        toInstantiate.transform.localPosition = new Vector3(x, y, 0f);
-        
+        toInstantiate.transform.localPosition = new Vector3(x, y, 0f);        
     }
 
 }

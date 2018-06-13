@@ -18,7 +18,6 @@ public class HelicopterController : MonoBehaviour {
         float moveVertical = Input.GetAxis("Vertical");
         float moveHorizontal = Input.GetAxis("Horizontal");
         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f);
-        
         rb.AddForce(movement * movementSpeed);
 
         if (Input.GetKey(KeyCode.Q))

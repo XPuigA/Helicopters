@@ -10,7 +10,6 @@ public class BulletHoles : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         spriteRenderer.sprite = getRandomSprite();
 	}
 

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Minigun : GunController {
 
-    public GameObject bulletHole;
+    public GameObject bullet;
 
     public override void Visit(GameObject other)
     {
         if (other.GetComponent<Hittable>() != null)
         {
-            other.GetComponent<Hittable>().Hit(bulletHole);
+            GameObject go = Instantiate(bullet, transform.position, Quaternion.identity);
+            go.GetComponent<Projectile>().SetTarget(other);
         }
-        
     }
 }
