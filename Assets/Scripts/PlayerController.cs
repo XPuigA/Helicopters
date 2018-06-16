@@ -5,24 +5,35 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public float movementSpeed;
-    private Rigidbody2D rb;
+    //private Rigidbody2D rb;
+    private Animator animator;
 
     // Use this for initialization
     void Start () {
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         float moveVertical = Input.GetAxis("Vertical");
         float moveHorizontal = Input.GetAxis("Horizontal");
-        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f);
-        rb.AddForce(movement * movementSpeed);
-
+        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0);
+        transform.position += movement * movementSpeed * Time.deltaTime;
+        if (Mathf.Abs(movement.x) > 0 || Mathf.Abs(movement.y) > 0) {
+            animator.SetTrigger("TriggerMove");
+        }
+        else {
+            animator.SetTrigger("TriggerIdle");
+        }
         var pos = Camera.main.WorldToScreenPoint(transform.position);
         var dir = Input.mousePosition - pos;
         var angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) - 90;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        if (Input.GetMouseButtonDown(0)) {
+            animator.SetTrigger("TriggerShoot");
+        }
     }
 
 }
