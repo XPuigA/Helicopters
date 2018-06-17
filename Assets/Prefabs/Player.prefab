@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 114379761912952886}
   - component: {fileID: 50709006896242432}
   - component: {fileID: 58752830471026920}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  weapon: {fileID: 0}
 --- !u!212 &212606553958786212
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -122,8 +123,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1861879941
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 63cd3c036386f8e43a454c6710d4ad01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

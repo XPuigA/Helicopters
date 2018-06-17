@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour {
 
     public GameObject bulletHole;
-    protected GameObject target;
+    protected Vector3 target = Vector3.negativeInfinity;
     public float speed;
 
     private void Start()
@@ -14,8 +14,11 @@ public abstract class Projectile : MonoBehaviour {
     }
 
     void Update () {
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+        if (!target.Equals(Vector3.negativeInfinity))
+        {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target, step);
+        }
     }
 
     public void Visit(GameObject other)
@@ -29,7 +32,16 @@ public abstract class Projectile : MonoBehaviour {
 
     public void SetTarget(GameObject target)
     {
-        Debug.Log("Target setted " + target.tag);
+        SetTarget(target.transform);
+    }
+
+    public void SetTarget(Transform target)
+    {
+        SetTarget(target.position);
+    }
+
+    public void SetTarget(Vector3 target)
+    {
         this.target = target;
     }
 }

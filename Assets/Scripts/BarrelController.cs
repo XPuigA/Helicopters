@@ -25,6 +25,7 @@ public class BarrelController : MonoBehaviour, Hittable {
         }        
         else if (other.gameObject.GetComponent<Projectile>() != null)
         {
+            Debug.Log("Hitted");
             other.gameObject.GetComponent<Projectile>().Visit(gameObject);
         }
     }

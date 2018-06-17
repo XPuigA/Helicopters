@@ -7,11 +7,15 @@ public class PlayerController : MonoBehaviour {
     public float movementSpeed;
     //private Rigidbody2D rb;
     private Animator animator;
+    public GameObject weapon;
+    private SpriteRenderer spriteRenderer;
+    private Weapon mainWeapon;
 
     // Use this for initialization
     void Start () {
-        //rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        mainWeapon = weapon.GetComponent<Weapon>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 	
 	// Update is called once per frame
@@ -32,6 +36,7 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         if (Input.GetMouseButtonDown(0)) {
+            mainWeapon.ShootAtMouseDirection(transform.position);
             animator.SetTrigger("TriggerShoot");
         }
     }
