@@ -7,22 +7,29 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public int numberOfTiles = 50;
-    private float spriteSize;
+    public GameObject player;
 
+    private float spriteSize;
     private List<Vector3> createdTiles = new List<Vector3>();
     private Transform parent;
 
 	// Use this for initialization
 	void Start () {
-        spriteSize = floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x;
+        spriteSize = (floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x);
+        Debug.Log(spriteSize);
         parent = new GameObject("Level").transform;
         StartCoroutine("Generate");
-        
 	}
 	
     void Generate() {
         GenerateFloor();
         GenerateWalls();
+        AddPlayer();
+    }
+
+    private void AddPlayer() {
+        Vector3 pos = createdTiles[Random.Range(0, createdTiles.Count)];
+        player.transform.position = pos;
     }
 
     private void GenerateFloor() {
@@ -49,8 +56,8 @@ public class LevelGenerator : MonoBehaviour {
                 break;
         }
         if (!createdTiles.Contains(transform.position)) {
-            GameObject go = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], transform.position, Quaternion.identity, parent);
-            createdTiles.Add(transform.position);
+            GameObject go = (GameObject)Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], transform.position, transform.rotation, parent);
+            createdTiles.Add(go.transform.position);
         }
         else {
             numberOfTiles++;
@@ -64,8 +71,8 @@ public class LevelGenerator : MonoBehaviour {
         float minY = 999999;
         float xAmount;
         float yAmount;
-        float extraWallX = 5;
-        float extraWallY = 5;
+        float extraWallX = 6;
+        float extraWallY = 6;
 
         foreach (Vector3 vector in createdTiles) {
             if (vector.x > maxX) maxX = vector.x;
@@ -77,11 +84,11 @@ public class LevelGenerator : MonoBehaviour {
         xAmount = ((maxX - minX) / spriteSize) + extraWallX;
         yAmount = ((maxY - minY) / spriteSize) + extraWallY;
         
-        for (int x = 0; x < xAmount; x++) {
-            for (int y = 0; y < yAmount; y++) {
-                Vector3 pos = new Vector3((minX - (extraWallX * spriteSize) / 2) + (x * spriteSize), (minY - (extraWallY * spriteSize) / 2) + (y * spriteSize), 0f);
+        for (float x = 0; x < xAmount; x++) {
+            for (float y = 0; y < yAmount; y++) {
+                Vector3 pos = new Vector3((minX - (extraWallX * spriteSize) / 2f) + (x * spriteSize), (minY - (extraWallY * spriteSize) / 2f) + (y * spriteSize));
                 if (!createdTiles.Contains(pos)) {
-                    Instantiate(wallTiles[Random.Range(0, wallTiles.Length)], pos, Quaternion.identity, parent);
+                    Instantiate(wallTiles[Random.Range(0, wallTiles.Length)], pos, transform.rotation, parent);
                 }
             }
         }

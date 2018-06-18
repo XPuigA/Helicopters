@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4239114757685632}
   - component: {fileID: 212606553958786212}
   - component: {fileID: 114379761912952886}
-  - component: {fileID: 50709006896242432}
-  - component: {fileID: 58752830471026920}
+  - component: {fileID: 95625378099138058}
+  - component: {fileID: 50927679700925612}
+  - component: {fileID: 58183517562704142}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -43,7 +44,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50709006896242432
+--- !u!50 &50927679700925612
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -63,7 +64,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58752830471026920
+--- !u!58 &58183517562704142
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,9 +76,27 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.1
+  m_Radius: 16
+--- !u!95 &95625378099138058
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004587871182364}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c4694d511b9b274081bea13ee145bdf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114379761912952886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cd1bcfabb538643980a90d795085ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  weapon: {fileID: 0}
+  movementSpeed: 50
+  weapon: {fileID: 1686803569210880, guid: ee89404bd969e174aa3bc070e923e835, type: 2}
 --- !u!212 &212606553958786212
 SpriteRenderer:
   m_ObjectHideFlags: 1
