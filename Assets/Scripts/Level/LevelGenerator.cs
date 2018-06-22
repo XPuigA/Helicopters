@@ -11,12 +11,14 @@ public class LevelGenerator : MonoBehaviour {
 
     private float spriteSize;
     private List<Vector3> createdTiles = new List<Vector3>();
+
+    [HideInInspector]
+    public HashSet<Tile> tileList = new HashSet<Tile>();
     private Transform parent;
 
 	// Use this for initialization
 	void Start () {
         spriteSize = (floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x);
-        Debug.Log(spriteSize);
         parent = new GameObject("Level").transform;
         StartCoroutine("Generate");
 	}
@@ -56,12 +58,17 @@ public class LevelGenerator : MonoBehaviour {
                 break;
         }
         if (!createdTiles.Contains(transform.position)) {
-            GameObject go = (GameObject)Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], transform.position, transform.rotation, parent);
-            createdTiles.Add(go.transform.position);
+            CreateTile();
         }
         else {
             numberOfTiles++;
         }
+    }
+
+    private void CreateTile() {
+        GameObject go = (GameObject)Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], transform.position, transform.rotation, parent);
+        createdTiles.Add(go.transform.position);
+        tileList.Add(new Tile(transform.position, go));
     }
 
     private void GenerateWalls() {
