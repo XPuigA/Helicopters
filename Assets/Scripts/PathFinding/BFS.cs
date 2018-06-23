@@ -13,26 +13,7 @@ public class BFS : PathFindingStrategy {
     };
 
     public List<Tile> FindPath(Dictionary<Vector3, Tile> map, Tile origin, Tile destination) {
-        HashSet<Vector3> visited = new HashSet<Vector3>();
-        Queue<Vector3> queue = new Queue<Vector3>();
-        queue.Enqueue(origin.position);
-        visited.Add(origin.position);
-        while(queue.Count > 0) {
-            Vector3 current = queue.Dequeue();
-            if (current == destination.position) {
-                // TODO find the path
-                return new List<Tile>(); 
-            }
-            foreach (Vector3 direction in directions) {
-                Vector3 next = current + direction;
-                Tile nextTile;
-                if (!visited.Contains(next) && map.TryGetValue(next, out nextTile) && CanMove(nextTile)) {
-                    visited.Add(next);
-                    queue.Enqueue(next);
-                }
-            }
-        }
-        return new List<Tile>();
+        return doPathFinding(map, origin, destination, true);
     }
 
     private bool CanMove(Tile nextTile) {
@@ -40,6 +21,41 @@ public class BFS : PathFindingStrategy {
     }
 
     public bool HasPath(Dictionary<Vector3, Tile> map, Tile origin, Tile destination) {
-        return FindPath(map, origin, destination).Count > 0;
+        return doPathFinding(map, origin, destination, false).Count > 0;
+    }
+
+
+    private List<Tile> doPathFinding(Dictionary<Vector3, Tile> map, Tile origin, Tile destination, bool returnPath) {
+        // key = position, value = from where we get there
+        Dictionary<Vector3, Vector3> visited = new Dictionary<Vector3, Vector3>();
+        Queue<Vector3> queue = new Queue<Vector3>();
+        queue.Enqueue(origin.position);
+        visited.Add(origin.position, new Vector3());
+        while (queue.Count > 0) {
+            Vector3 current = queue.Dequeue();
+            if (current == destination.position) {
+                List<Tile> path = new List<Tile>();
+                if (returnPath) {
+                    getFollowedPath(visited, origin, destination);
+                }
+                else {
+                    path.Add(new Tile());
+                }
+                return path;
+            }
+            foreach (Vector3 direction in directions) {
+                Vector3 next = current + direction;
+                Tile nextTile;
+                if (!visited.ContainsKey(next) && map.TryGetValue(next, out nextTile) && CanMove(nextTile)) {
+                    visited.Add(next, current);
+                    queue.Enqueue(next);
+                }
+            }
+        }
+        return new List<Tile>();
+    }
+
+    private void getFollowedPath(Dictionary<Vector3, Vector3> visited, Tile origin, Tile destination) {
+        throw new NotImplementedException();
     }
 }

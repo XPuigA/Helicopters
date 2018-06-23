@@ -7,7 +7,7 @@ public class Tile {
     public Vector3 position;
     readonly GameObject gameObject;
 
-	Tile() {
+    public Tile() {
 
     }
 
