@@ -4,29 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject levelGeneratorGameObject;
+    public GameObject[] floorTiles;
+    public GameObject[] wallTiles;
+    public int numberOfTiles = 50;
+    public GameObject player;
+    public GameObject enemy;
 
     public PathFindingStrategy pathFindingStrategy = new BFS();
-
-    bool found = false;
 
     private LevelGenerator levelGenerator;
 
     void Start() {
-        levelGenerator = levelGeneratorGameObject.GetComponent<LevelGenerator>();
+        levelGenerator = new LevelGenerator(floorTiles, wallTiles, numberOfTiles, player, enemy);
     }
 
     void Update() {
-        Debug.Log(levelGenerator.map.Count);
-        Debug.Log(levelGenerator.numberOfTiles);
-        Debug.Log(levelGenerator.map.Count == levelGenerator.numberOfTiles);
-        if (levelGenerator.map.Count == levelGenerator.numberOfTiles && !found) {
-            Debug.Log("entra");
-            Tile playerTile, enemyTile;
-            levelGenerator.map.TryGetValue(levelGenerator.player.transform.position, out playerTile);
-            levelGenerator.map.TryGetValue(levelGenerator.enemy.transform.position, out enemyTile);
-            Debug.Log(pathFindingStrategy.HasPath(levelGenerator.map, enemyTile, playerTile));
-            found = true;
-        }
+        Tile playerTile, enemyTile;
+
+        levelGenerator.map.TryGetValue(player.transform.position, out playerTile);
+        levelGenerator.map.TryGetValue(enemy.transform.position, out enemyTile);
+
+        Debug.Log(pathFindingStrategy.HasPath(levelGenerator.map, enemyTile, playerTile));
+
     }
 }

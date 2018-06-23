@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour {
     public GameObject weapon;
     private SpriteRenderer spriteRenderer;
     private Weapon mainWeapon;
-    
 
     // Use this for initialization
     void Start () {

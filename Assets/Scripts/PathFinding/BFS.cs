@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class BFS : PathFindingStrategy {
 
-    Vector3[] directions = {
-        new Vector3(0f, 1f),
-        new Vector3(1f, 0f),
-        new Vector3(0f, -1f),
-        new Vector3(-1f, 0f)
-    };
-
     public List<Tile> FindPath(Dictionary<Vector3, Tile> map, Tile origin, Tile destination) {
         return doPathFinding(map, origin, destination, true);
     }
@@ -28,7 +21,7 @@ public class BFS : PathFindingStrategy {
 
     private List<Tile> doPathFinding(Dictionary<Vector3, Tile> map, Tile origin, Tile destination, bool returnPath) {
         // key = position, value = from where we get there
-        Dictionary<Vector3, Vector3> visited = new Dictionary<Vector3, Vector3>();
+        Dictionary<Vector3, Vector3> visited = new Dictionary<Vector3, Vector3>(map.Count);
         Queue<Vector3> queue = new Queue<Vector3>();
         queue.Enqueue(origin.position);
         visited.Add(origin.position, Vector3.positiveInfinity);
@@ -44,7 +37,7 @@ public class BFS : PathFindingStrategy {
                 }
                 return path;
             }
-            foreach (Vector3 direction in directions) {
+            foreach (Vector3 direction in Directions.directions) {
                 Vector3 next = current + direction;
                 Tile nextTile;
                 if (!visited.ContainsKey(next) && map.TryGetValue(next, out nextTile) && CanMove(nextTile)) {

@@ -2,40 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator : MonoBehaviour {
+public class LevelGenerator {
 
-    public GameObject[] floorTiles;
-    public GameObject[] wallTiles;
-    public int numberOfTiles = 50;
-    private int counter;
-    public GameObject player;
-    public GameObject enemy;
+    private GameObject[] floorTiles;
+    private GameObject[] wallTiles;
+    private int numberOfTiles = 50;
+    private GameObject player;
+    private GameObject enemy;
 
     private float spriteSize;
-    private List<Vector3> createdTiles = new List<Vector3>();
+    private List<Vector3> createdTiles;
 
     [HideInInspector]
-    public bool finished;
-
-    [HideInInspector]
-    public Dictionary<Vector3, Tile> map = new Dictionary<Vector3, Tile>();
+    public Dictionary<Vector3, Tile> map;
     private Transform parent;
 
-	// Use this for initialization
-	void Start () {
+    private Vector3 position = Vector3.zero;
+
+    public LevelGenerator(GameObject[] floorTiles, GameObject[] wallTiles, int numberOfTiles, GameObject player, GameObject enemy) {
+        this.floorTiles = floorTiles;
+        this.wallTiles = wallTiles;
+        this.numberOfTiles = numberOfTiles;
+        this.player = player;
+        this.enemy = enemy;
+
+        createdTiles = new List<Vector3>(numberOfTiles);
+        map = new Dictionary<Vector3, Tile>(numberOfTiles);
         spriteSize = (floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x);
         parent = new GameObject("Level").transform;
-        counter = numberOfTiles;
-        finished = false;
-        StartCoroutine("Generate");
-	}
-	
+        Generate();
+    }
+
     void Generate() {
         GenerateFloor();
         GenerateWalls();
         AddPlayer();
         AddEnemy();
-        finished = true;
     }
 
     private void AddPlayer() {
@@ -49,41 +51,40 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private void GenerateFloor() {
-        Debug.Log(counter);
-        for (int i=0; i<counter; i++) {
+        for (int i=0; i<numberOfTiles; i++) {
             int dir = Random.Range(0, 4);
             SetTile(dir);
         }
     }
 
     private void SetTile(int dir) {
-        Vector3 curPos = transform.position;
+        Vector3 curPos = position;
         switch (dir) {            
             case 0:
-                transform.position = new Vector3(curPos.x, curPos.y + spriteSize, curPos.z);
+                position = new Vector3(curPos.x, curPos.y + spriteSize, curPos.z);
                 break;
             case 1:
-                transform.position = new Vector3(curPos.x + spriteSize, curPos.y, curPos.z);
+                position = new Vector3(curPos.x + spriteSize, curPos.y, curPos.z);
                 break;
             case 2:
-                transform.position = new Vector3(curPos.x, curPos.y - spriteSize, curPos.z);
+                position = new Vector3(curPos.x, curPos.y - spriteSize, curPos.z);
                 break;
             case 3:
-                transform.position = new Vector3(curPos.x - spriteSize, curPos.y, curPos.z);
+                position = new Vector3(curPos.x - spriteSize, curPos.y, curPos.z);
                 break;
         }
-        if (!createdTiles.Contains(transform.position)) {
+        if (!createdTiles.Contains(position)) {
             CreateTile();
         }
         else {
-            counter++;
+            numberOfTiles++;
         }
     }
 
     private void CreateTile() {
-        GameObject go = (GameObject)Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], transform.position, transform.rotation, parent);
+        GameObject go = (GameObject)GameObject.Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], position, Quaternion.identity, parent);
         createdTiles.Add(go.transform.position);
-        map.Add(transform.position, new Tile(transform.position, go));
+        map.Add(position, new Tile(position, go));
     }
 
     private void GenerateWalls() {
@@ -110,7 +111,7 @@ public class LevelGenerator : MonoBehaviour {
             for (float y = 0; y < yAmount; y++) {
                 Vector3 pos = new Vector3((minX - (extraWallX * spriteSize) / 2f) + (x * spriteSize), (minY - (extraWallY * spriteSize) / 2f) + (y * spriteSize));
                 if (!createdTiles.Contains(pos)) {
-                    Instantiate(wallTiles[Random.Range(0, wallTiles.Length)], pos, transform.rotation, parent);
+                    GameObject.Instantiate(wallTiles[Random.Range(0, wallTiles.Length)], pos, Quaternion.identity, parent);
                 }
             }
         }
