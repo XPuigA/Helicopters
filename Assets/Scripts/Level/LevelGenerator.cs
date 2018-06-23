@@ -7,19 +7,26 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public int numberOfTiles = 50;
+    private int counter;
     public GameObject player;
+    public GameObject enemy;
 
     private float spriteSize;
     private List<Vector3> createdTiles = new List<Vector3>();
 
     [HideInInspector]
-    public HashSet<Tile> tileList = new HashSet<Tile>();
+    public bool finished;
+
+    [HideInInspector]
+    public Dictionary<Vector3, Tile> map = new Dictionary<Vector3, Tile>();
     private Transform parent;
 
 	// Use this for initialization
 	void Start () {
         spriteSize = (floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x);
         parent = new GameObject("Level").transform;
+        counter = numberOfTiles;
+        finished = false;
         StartCoroutine("Generate");
 	}
 	
@@ -27,6 +34,8 @@ public class LevelGenerator : MonoBehaviour {
         GenerateFloor();
         GenerateWalls();
         AddPlayer();
+        AddEnemy();
+        finished = true;
     }
 
     private void AddPlayer() {
@@ -34,8 +43,14 @@ public class LevelGenerator : MonoBehaviour {
         player.transform.position = pos;
     }
 
+    private void AddEnemy() {
+        Vector3 pos = createdTiles[Random.Range(0, createdTiles.Count)];
+        enemy.transform.position = pos;
+    }
+
     private void GenerateFloor() {
-        for (int i=0; i<numberOfTiles; i++) {
+        Debug.Log(counter);
+        for (int i=0; i<counter; i++) {
             int dir = Random.Range(0, 4);
             SetTile(dir);
         }
@@ -61,14 +76,14 @@ public class LevelGenerator : MonoBehaviour {
             CreateTile();
         }
         else {
-            numberOfTiles++;
+            counter++;
         }
     }
 
     private void CreateTile() {
         GameObject go = (GameObject)Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], transform.position, transform.rotation, parent);
         createdTiles.Add(go.transform.position);
-        tileList.Add(new Tile(transform.position, go));
+        map.Add(transform.position, new Tile(transform.position, go));
     }
 
     private void GenerateWalls() {

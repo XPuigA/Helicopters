@@ -21,6 +21,7 @@ public class BFS : PathFindingStrategy {
     }
 
     public bool HasPath(Dictionary<Vector3, Tile> map, Tile origin, Tile destination) {
+        Debug.Log("finding");
         return doPathFinding(map, origin, destination, false).Count > 0;
     }
 
@@ -30,13 +31,13 @@ public class BFS : PathFindingStrategy {
         Dictionary<Vector3, Vector3> visited = new Dictionary<Vector3, Vector3>();
         Queue<Vector3> queue = new Queue<Vector3>();
         queue.Enqueue(origin.position);
-        visited.Add(origin.position, new Vector3());
+        visited.Add(origin.position, Vector3.positiveInfinity);
         while (queue.Count > 0) {
             Vector3 current = queue.Dequeue();
             if (current == destination.position) {
                 List<Tile> path = new List<Tile>();
                 if (returnPath) {
-                    getFollowedPath(visited, origin, destination);
+                    getFollowedPath(map, visited, origin, destination);
                 }
                 else {
                     path.Add(new Tile());
@@ -55,7 +56,15 @@ public class BFS : PathFindingStrategy {
         return new List<Tile>();
     }
 
-    private void getFollowedPath(Dictionary<Vector3, Vector3> visited, Tile origin, Tile destination) {
-        throw new NotImplementedException();
+    private List<Tile> getFollowedPath(Dictionary<Vector3, Tile> map, Dictionary<Vector3, Vector3> visited, Tile origin, Tile destination) {
+        List<Tile> path = new List<Tile>();
+        Vector3 nextPosition;
+        Tile nextTile;
+        do {
+            visited.TryGetValue(destination.position, out nextPosition);
+            map.TryGetValue(nextPosition, out nextTile);
+            path.Add(nextTile);
+        } while (nextPosition != Vector3.positiveInfinity);
+        return path;
     }
 }
