@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour {
         levelGenerator = new SimpleGenerator(floorTiles, wallTiles, numberOfTiles, player, enemy);
         map = levelGenerator.Generate();
         hasPath();
-        getPath();
+        List<Tile> path = getPath();
+        enemy.GetComponent<Enemy>().SetDestination(path[0]);
     }
 
     void Update() {
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log(pathFindingStrategy.HasPath(map, enemyTile, playerTile));
     }
 
-    private void getPath() {
+    private List<Tile> getPath() {
         Tile playerTile, enemyTile;
 
         map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
@@ -47,5 +48,7 @@ public class GameManager : MonoBehaviour {
         foreach(Tile tile in path ) {
             Debug.Log("P:" + tile.position);
         }
+
+        return path;
     }
 }
