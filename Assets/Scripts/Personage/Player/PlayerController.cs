@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : Personage {
 
     public float movementSpeed;
     private Rigidbody2D rb;
@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour {
         mainWeapon = weapon.gameObject.GetComponent<Weapon>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        
     }
 	
 	// Update is called once per frame
@@ -44,13 +43,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public Vector3 GetTilePosition() {        
-        RaycastHit2D hits;
-        hits = Physics2D.Raycast(transform.position, Vector2.zero, 32f, 1 << LayerMask.NameToLayer("Ground"));
-        if (hits && hits.collider.gameObject && hits.collider.gameObject.CompareTag("Floor")) {
-            return hits.collider.gameObject.transform.position;
-        }
-        return Vector3.negativeInfinity;
+    public override void Hit(GameObject toInstantiate) {
+        throw new System.NotImplementedException();
     }
-
 }

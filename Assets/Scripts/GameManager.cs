@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour {
     public PathFindingStrategy pathFindingStrategy = new BFS();
 
     private LevelGenerator levelGenerator;
+    private Dictionary<Vector3, Tile> map;
 
     void Start() {
-        levelGenerator = new LevelGenerator(floorTiles, wallTiles, numberOfTiles, player, enemy);
+        levelGenerator = new SimpleGenerator(floorTiles, wallTiles, numberOfTiles, player, enemy);
+        map = levelGenerator.Generate();
         hasPath();
         getPath();
     }
@@ -28,19 +30,19 @@ public class GameManager : MonoBehaviour {
     private void hasPath() {
         Tile playerTile, enemyTile;
 
-        levelGenerator.map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
-        levelGenerator.map.TryGetValue(enemy.GetComponent<Enemy>().GetTilePosition(), out enemyTile);
+        map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
+        map.TryGetValue(enemy.GetComponent<Enemy>().GetTilePosition(), out enemyTile);
 
-        Debug.Log(pathFindingStrategy.HasPath(levelGenerator.map, enemyTile, playerTile));
+        Debug.Log(pathFindingStrategy.HasPath(map, enemyTile, playerTile));
     }
 
     private void getPath() {
         Tile playerTile, enemyTile;
 
-        levelGenerator.map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
-        levelGenerator.map.TryGetValue(enemy.GetComponent<Enemy>().GetTilePosition(), out enemyTile);
+        map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
+        map.TryGetValue(enemy.GetComponent<Enemy>().GetTilePosition(), out enemyTile);
 
-        List<Tile> path = pathFindingStrategy.FindPath(levelGenerator.map, enemyTile, playerTile);
+        List<Tile> path = pathFindingStrategy.FindPath(map, enemyTile, playerTile);
 
         foreach(Tile tile in path ) {
             Debug.Log("P:" + tile.position);

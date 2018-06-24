@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public abstract class Personage : MonoBehaviour, Hittable {
 
 	// Use this for initialization
 	void Start () {
@@ -22,4 +22,6 @@ public class Enemy : MonoBehaviour {
         }
         return Vector3.negativeInfinity;
     }
+
+    public abstract void Hit(GameObject toInstantiate);
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator {
+public class SimpleGenerator : LevelGenerator {
 
     private GameObject[] floorTiles;
     private GameObject[] wallTiles;
@@ -14,12 +14,11 @@ public class LevelGenerator {
     private List<Vector3> createdTiles;
 
     [HideInInspector]
-    public Dictionary<Vector3, Tile> map;
     private Transform parent;
-
+    private Dictionary<Vector3, Tile> map;
     private Vector3 position = Vector3.zero;
 
-    public LevelGenerator(GameObject[] floorTiles, GameObject[] wallTiles, int numberOfTiles, GameObject player, GameObject enemy) {
+    public SimpleGenerator(GameObject[] floorTiles, GameObject[] wallTiles, int numberOfTiles, GameObject player, GameObject enemy) {
         this.floorTiles = floorTiles;
         this.wallTiles = wallTiles;
         this.numberOfTiles = numberOfTiles;
@@ -30,14 +29,15 @@ public class LevelGenerator {
         map = new Dictionary<Vector3, Tile>(numberOfTiles);
         spriteSize = (floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x);
         parent = new GameObject("Level").transform;
-        Generate();
+        //Generate();
     }
 
-    void Generate() {
+    public Dictionary<Vector3, Tile> Generate() {
         GenerateFloor();
         GenerateWalls();
         AddPlayer();
         AddEnemy();
+        return map;
     }
 
     private void AddPlayer() {
@@ -51,7 +51,7 @@ public class LevelGenerator {
     }
 
     private void GenerateFloor() {
-        for (int i=0; i<numberOfTiles; i++) {
+        for (int i = 0; i < numberOfTiles; i++) {
             int dir = Random.Range(0, 4);
             SetTile(dir);
         }
@@ -59,7 +59,7 @@ public class LevelGenerator {
 
     private void SetTile(int dir) {
         Vector3 curPos = position;
-        switch (dir) {            
+        switch (dir) {
             case 0:
                 position = new Vector3(curPos.x, curPos.y + spriteSize, curPos.z);
                 break;
@@ -106,7 +106,7 @@ public class LevelGenerator {
 
         xAmount = ((maxX - minX) / spriteSize) + extraWallX;
         yAmount = ((maxY - minY) / spriteSize) + extraWallY;
-        
+
         for (float x = 0; x < xAmount; x++) {
             for (float y = 0; y < yAmount; y++) {
                 Vector3 pos = new Vector3((minX - (extraWallX * spriteSize) / 2f) + (x * spriteSize), (minY - (extraWallY * spriteSize) / 2f) + (y * spriteSize));
@@ -116,6 +116,4 @@ public class LevelGenerator {
             }
         }
     }
-
-    
 }
