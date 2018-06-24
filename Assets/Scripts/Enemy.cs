@@ -13,4 +13,13 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public Vector3 GetTilePosition() {
+        RaycastHit2D hits;
+        hits = Physics2D.Raycast(transform.position, Vector2.zero, 32f, 1 << LayerMask.NameToLayer("Ground"));
+        if (hits && hits.collider.gameObject && hits.collider.gameObject.CompareTag("Floor")) {
+            return hits.collider.gameObject.transform.position;
+        }
+        return Vector3.negativeInfinity;
+    }
 }
