@@ -57,4 +57,6 @@ MonoBehaviour:
   - {fileID: 1992135576518132, guid: bfca6bc252fef2241bf1d27e65cd536f, type: 2}
   numberOfTiles: 50
   player: {fileID: 0}
-  enemy: {fileID: 0}
+  enemiesPrefabs:
+  - {fileID: 1398192944885880, guid: e6ea915dba1a31e448015122093a86c5, type: 2}
+  enemies: []

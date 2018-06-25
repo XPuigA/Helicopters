@@ -7,8 +7,6 @@ public class SimpleGenerator : LevelGenerator {
     private GameObject[] floorTiles;
     private GameObject[] wallTiles;
     private int numberOfTiles = 50;
-    private GameObject player;
-    private GameObject enemy;
 
     private float spriteSize;
     private List<Vector3> createdTiles;
@@ -18,12 +16,10 @@ public class SimpleGenerator : LevelGenerator {
     private Dictionary<Vector3, Tile> map;
     private Vector3 position = Vector3.zero;
 
-    public SimpleGenerator(GameObject[] floorTiles, GameObject[] wallTiles, int numberOfTiles, GameObject player, GameObject enemy) {
+    public SimpleGenerator(GameObject[] floorTiles, GameObject[] wallTiles, int numberOfTiles) {
         this.floorTiles = floorTiles;
         this.wallTiles = wallTiles;
         this.numberOfTiles = numberOfTiles;
-        this.player = player;
-        this.enemy = enemy;
 
         createdTiles = new List<Vector3>(numberOfTiles);
         map = new Dictionary<Vector3, Tile>(numberOfTiles);
@@ -35,19 +31,11 @@ public class SimpleGenerator : LevelGenerator {
     public Dictionary<Vector3, Tile> Generate() {
         GenerateFloor();
         GenerateWalls();
-        AddPlayer();
-        AddEnemy();
         return map;
     }
 
-    private void AddPlayer() {
-        Vector3 pos = createdTiles[Random.Range(0, createdTiles.Count)];
-        player.transform.position = pos;
-    }
-
-    private void AddEnemy() {
-        Vector3 pos = createdTiles[Random.Range(0, createdTiles.Count)];
-        enemy.transform.position = pos;
+    public List<Vector3> GetTiles() {
+        return createdTiles;
     }
 
     private void GenerateFloor() {

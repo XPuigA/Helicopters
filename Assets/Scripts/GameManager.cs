@@ -8,29 +8,34 @@ public class GameManager : MonoBehaviour {
     public GameObject[] wallTiles;
     public int numberOfTiles = 50;
     public GameObject player;
-    public GameObject enemy;
+    public GameObject[] enemiesPrefabs;
+
+    public GameObject[] enemies;
 
     public PathFindingStrategy pathFindingStrategy = new BFS();
 
     private LevelGenerator levelGenerator;
+    private ObjectPlacer objectPlacer;
     private Dictionary<Vector3, Tile> map;
 
     void Start() {
-        levelGenerator = new SimpleGenerator(floorTiles, wallTiles, numberOfTiles, player, enemy);
+        levelGenerator = new SimpleGenerator(floorTiles, wallTiles, numberOfTiles);
+        
         map = levelGenerator.Generate();
-        hasPath();
-        List<Tile> path = getPath();
-        if (path.Count > 2) {
-            enemy.GetComponent<Enemy>().SetDestination(path[path.Count - 2]);
+        objectPlacer = new SimpleObjectPlacer(levelGenerator.GetTiles());
+
+        objectPlacer.PlacePlayer(player);
+        enemies = objectPlacer.PlaceEnemies(enemiesPrefabs, 1);
+        List<Tile> path = getPath(enemies[0]);
+        if (path.Count > 1) {
+            enemies[0].GetComponent<Enemy>().SetDestination(path[path.Count - 2]);
         }
     }
 
     void Update() {
-        
-
     }
 
-    private void hasPath() {
+    private void hasPath(GameObject enemy) {
         Tile playerTile, enemyTile;
 
         map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
@@ -39,7 +44,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log(pathFindingStrategy.HasPath(map, enemyTile, playerTile));
     }
 
-    private List<Tile> getPath() {
+    private List<Tile> getPath(GameObject enemy) {
         Tile playerTile, enemyTile;
 
         map.TryGetValue(player.GetComponent<PlayerController>().GetTilePosition(), out playerTile);
