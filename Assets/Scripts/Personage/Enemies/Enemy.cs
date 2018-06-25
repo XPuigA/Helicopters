@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Personage, Hittable {
+public class Enemy : Personage {
 
     // Use this for initialization
     public float movementSpeed;
@@ -22,6 +22,7 @@ public class Enemy : Personage, Hittable {
 
             if (x > Mathf.Epsilon || y > Mathf.Epsilon) {
                 Move();
+
             }
             else {
                 Debug.Log("E: " + transform.position);
@@ -30,13 +31,8 @@ public class Enemy : Personage, Hittable {
         }
 	}
 
-    void Move() {
-
-        Debug.Log("Entra " + destination);
-        //transform.LookAt(destination);
-        Debug.Log((transform.position - destination).normalized);
-        rb.velocity = (((destination - transform.position).normalized) * movementSpeed);
-        //rb.MovePosition(transform.position - destination * Time.deltaTime);
+    void Move() {        
+        transform.position = Vector3.MoveTowards(transform.position, destination, 1f * Time.deltaTime * movementSpeed);        
     }
 
 
@@ -47,10 +43,17 @@ public class Enemy : Personage, Hittable {
     }
 
     public void SetDestination(Tile destination) {
-        SetDestination(destination.position*2);
+        SetDestination(destination.position);
     }
 
     public override void Hit(GameObject toInstantiate) {
+        Debug.Log("Collision");
         throw new System.NotImplementedException();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.GetComponent<Projectile>() != null) {
+            other.gameObject.GetComponent<Projectile>().Visit(gameObject);
+        }
     }
 }

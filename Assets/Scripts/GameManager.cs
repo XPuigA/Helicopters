@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour {
         map = levelGenerator.Generate();
         hasPath();
         List<Tile> path = getPath();
-        enemy.GetComponent<Enemy>().SetDestination(path[0]);
+        if (path.Count > 2) {
+            enemy.GetComponent<Enemy>().SetDestination(path[path.Count - 2]);
+        }
     }
 
     void Update() {
@@ -44,10 +46,6 @@ public class GameManager : MonoBehaviour {
         map.TryGetValue(enemy.GetComponent<Enemy>().GetTilePosition(), out enemyTile);
 
         List<Tile> path = pathFindingStrategy.FindPath(map, enemyTile, playerTile);
-
-        foreach(Tile tile in path ) {
-            Debug.Log("P:" + tile.position);
-        }
 
         return path;
     }

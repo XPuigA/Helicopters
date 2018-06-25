@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50538053402043686}
   - component: {fileID: 58312552434942680}
   - component: {fileID: 114255026193657004}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dalek
   m_TagString: Untagged
   m_Icon: {fileID: 0}
