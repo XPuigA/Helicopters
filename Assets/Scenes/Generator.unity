@@ -259,7 +259,7 @@ Prefab:
     - target: {fileID: 58183517562704142, guid: 48444b7d05360274eb62ae36ef69dbaf,
         type: 2}
       propertyPath: m_Radius
-      value: 0.0001
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114379761912952886, guid: 48444b7d05360274eb62ae36ef69dbaf,
         type: 2}
@@ -424,7 +424,7 @@ Prefab:
     - target: {fileID: 114194438574187844, guid: dd4ee745159bfe246b91bea00050b194,
         type: 2}
       propertyPath: numberOfTiles
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd4ee745159bfe246b91bea00050b194, type: 2}

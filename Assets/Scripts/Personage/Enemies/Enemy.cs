@@ -9,29 +9,33 @@ public class Enemy : Personage {
 
     private Vector3 destination = Vector3.negativeInfinity;
     private Rigidbody2D rb;
+    private List<Vector3> path = new List<Vector3>();
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
     }
 	
 	void FixedUpdate () {
+        Move();
+        Rotate();
+    }
+
+    void Move() {
         if (!destination.Equals(Vector3.negativeInfinity)) {
             float x = Mathf.Abs(destination.x - transform.position.x);
             float y = Mathf.Abs(destination.y - transform.position.y);
 
             if (x > Mathf.Epsilon || y > Mathf.Epsilon) {
-                Move();
-                Rotate();
+                transform.position = Vector3.MoveTowards(transform.position, destination, 1f * Time.deltaTime * movementSpeed);
             }
-            else {
-                Debug.Log("E: " + transform.position);
-                destination = Vector3.negativeInfinity;
+            else {              
+              destination = Vector3.negativeInfinity;
             }
         }
-	}
-
-    void Move() {
-        transform.position = Vector3.MoveTowards(transform.position, destination, 1f * Time.deltaTime * movementSpeed);        
+        if (path.Count > 0 && destination.Equals(Vector3.negativeInfinity)) {
+            SetDestination(path[0]);
+            path.RemoveAt(0);
+        }
     }
 
     void Rotate() {
@@ -50,6 +54,18 @@ public class Enemy : Personage {
 
     public void SetDestination(Tile destination) {
         SetDestination(destination.position);
+    }
+
+    public void SetPath(List<Tile> path) {
+        List<Vector3> vectorPath = new List<Vector3>();
+        foreach (Tile tile in path) {
+            vectorPath.Add(tile.position);
+        }
+        SetPath(vectorPath);
+    }
+
+    public void SetPath(List<Vector3> path) {
+        this.path = path;
     }
 
     public override void Hit(Projectile hitter) {

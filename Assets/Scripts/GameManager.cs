@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour {
         enemies = objectPlacer.PlaceEnemies(enemiesPrefabs, 1);
         List<Tile> path = getPath(enemies[0]);
         if (path.Count > 1) {
-            enemies[0].GetComponent<Enemy>().SetDestination(path[path.Count - 2]);
+            path.Reverse();
+            enemies[0].GetComponent<Enemy>().SetPath(path);
         }
     }
 
