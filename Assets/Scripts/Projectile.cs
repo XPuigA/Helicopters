@@ -8,8 +8,7 @@ public abstract class Projectile : MonoBehaviour {
     protected Vector3 target = Vector3.negativeInfinity;
     public float speed;
 
-    private void Start()
-    {
+    private void Start() {
         
     }
 

@@ -5,18 +5,25 @@ using UnityEngine;
 public class PlayerController : Personage {
 
     public float movementSpeed;
+    public GameObject weapon;
+    public GameObject soundManagerGameObject;
+    public AudioClip stepsSound;
+    public AudioClip shootSound;
+
     private Rigidbody2D rb;
     private Animator animator;
-    public GameObject weapon;
     private SpriteRenderer spriteRenderer;
     private Weapon mainWeapon;
+    private AudioSource soundManager;
+    
 
     // Use this for initialization
     void Start () {
         animator = gameObject.GetComponent<Animator>();
         mainWeapon = weapon.gameObject.GetComponent<Weapon>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        soundManager = soundManagerGameObject.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -28,6 +35,9 @@ public class PlayerController : Personage {
         
         if (Mathf.Abs(movement.x) > 0 || Mathf.Abs(movement.y) > 0) {
             animator.SetTrigger("TriggerMove");
+            
+            soundManager.clip = stepsSound;
+            soundManager.Play();
         }
         else {
             animator.SetTrigger("TriggerIdle");
@@ -40,6 +50,9 @@ public class PlayerController : Personage {
         if (Input.GetMouseButtonDown(0)) {
             mainWeapon.ShootAtMouseDirection(transform.position);
             animator.SetTrigger("TriggerShoot");
+            
+            soundManager.clip = shootSound;
+            soundManager.Play();
         }
     }
 
