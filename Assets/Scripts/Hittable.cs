@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Hittable {
 
-    void Hit(GameObject toInstantiate);
+    void Hit(Projectile hitter);
 }

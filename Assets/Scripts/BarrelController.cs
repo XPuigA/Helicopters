@@ -40,9 +40,9 @@ public class BarrelController : MonoBehaviour, Hittable {
         //Debug.Log("Exit");
     }
 
-    public void Hit(GameObject toInstantiate)
+    public void Hit(Projectile hitter)
     {
-        toInstantiate = Instantiate(toInstantiate, transform);
+        GameObject toInstantiate = Instantiate(hitter.bulletHole, transform);
         SpriteRenderer toInstantiateRenderer = toInstantiate.GetComponent<SpriteRenderer>();
         float sizeX = spriteRenderer.bounds.size[0] - toInstantiateRenderer.bounds.size[0];
         float sizeY = spriteRenderer.bounds.size[1] - toInstantiateRenderer.bounds.size[1];

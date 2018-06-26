@@ -43,7 +43,7 @@ public class PlayerController : Personage {
         }
     }
 
-    public override void Hit(GameObject toInstantiate) {
+    public override void Hit(Projectile hitter) {
         throw new System.NotImplementedException();
     }
 }

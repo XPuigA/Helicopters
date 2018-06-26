@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : Personage {
 
-    // Use this for initialization
     public float movementSpeed;
+    public float rotationSpeed;
 
     private Vector3 destination = Vector3.negativeInfinity;
     private Rigidbody2D rb;
@@ -14,7 +14,6 @@ public class Enemy : Personage {
         rb = GetComponent<Rigidbody2D>();
     }
 	
-	// Update is called once per frame
 	void FixedUpdate () {
         if (!destination.Equals(Vector3.negativeInfinity)) {
             float x = Mathf.Abs(destination.x - transform.position.x);
@@ -22,7 +21,7 @@ public class Enemy : Personage {
 
             if (x > Mathf.Epsilon || y > Mathf.Epsilon) {
                 Move();
-
+                Rotate();
             }
             else {
                 Debug.Log("E: " + transform.position);
@@ -31,10 +30,17 @@ public class Enemy : Personage {
         }
 	}
 
-    void Move() {        
+    void Move() {
         transform.position = Vector3.MoveTowards(transform.position, destination, 1f * Time.deltaTime * movementSpeed);        
     }
 
+    void Rotate() {
+        Vector3 diff = destination - transform.position;
+        diff.Normalize();
+
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+    }
 
     public void SetDestination(Vector3 destination) {
         Debug.Log("Setting");
@@ -46,9 +52,8 @@ public class Enemy : Personage {
         SetDestination(destination.position);
     }
 
-    public override void Hit(GameObject toInstantiate) {
-        Debug.Log("Collision");
-        throw new System.NotImplementedException();
+    public override void Hit(Projectile hitter) {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

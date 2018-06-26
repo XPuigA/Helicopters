@@ -25,7 +25,7 @@ public abstract class Projectile : MonoBehaviour {
     {
         if (other.GetComponent<Hittable>() != null)
         {
-            other.GetComponent<Hittable>().Hit(bulletHole);
+            other.GetComponent<Hittable>().Hit(this);
             Destroy(gameObject);
         }
     }

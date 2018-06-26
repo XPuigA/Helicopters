@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4859424832729588}
   - component: {fileID: 212031164978967178}
+  - component: {fileID: 114255026193657004}
   - component: {fileID: 50538053402043686}
   - component: {fileID: 58312552434942680}
-  - component: {fileID: 114255026193657004}
   m_Layer: 9
   m_Name: Dalek
   m_TagString: Untagged
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  rotationSpeed: 10
 --- !u!212 &212031164978967178
 SpriteRenderer:
   m_ObjectHideFlags: 1

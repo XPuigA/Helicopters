@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Wall : MonoBehaviour, Hittable {
-    public void Hit(GameObject toInstantiate) {
+
+    public void Hit(Projectile hitter) {
      //   throw new System.NotImplementedException();
     }
 

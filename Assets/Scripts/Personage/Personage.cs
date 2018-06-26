@@ -23,5 +23,5 @@ public abstract class Personage : MonoBehaviour, Hittable {
         return Vector3.negativeInfinity;
     }
 
-    public abstract void Hit(GameObject toInstantiate);
+    public abstract void Hit(Projectile hitter);
 }
