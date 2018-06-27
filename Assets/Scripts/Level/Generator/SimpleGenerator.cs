@@ -23,7 +23,7 @@ public class SimpleGenerator : LevelGenerator {
 
         createdTiles = new List<Vector3>(numberOfTiles);
         map = new Dictionary<Vector3, Tile>(numberOfTiles);
-        spriteSize = (floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.x);
+        spriteSize = 1f;
         parent = new GameObject("Level").transform;
         //Generate();
     }

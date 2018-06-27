@@ -259,7 +259,7 @@ Prefab:
     - target: {fileID: 58183517562704142, guid: 48444b7d05360274eb62ae36ef69dbaf,
         type: 2}
       propertyPath: m_Radius
-      value: 15
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 114379761912952886, guid: 48444b7d05360274eb62ae36ef69dbaf,
         type: 2}
@@ -327,7 +327,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 200
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -78,7 +78,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 0.4
 --- !u!95 &95625378099138058
 Animator:
   serializedVersion: 3
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cd1bcfabb538643980a90d795085ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 50
+  movementSpeed: 5
   weapon: {fileID: 1686803569210880, guid: ee89404bd969e174aa3bc070e923e835, type: 2}
   soundManagerGameObject: {fileID: 0}
   stepsSound: {fileID: 8300000, guid: 57b44ad5b62fa9047a878b6d8924b769, type: 3}
