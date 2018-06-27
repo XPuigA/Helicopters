@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour {
     public GameObject[] enemiesPrefabs;
 
     public GameObject[] enemies;
+    public GameObject medKitPrefab;
+    public GameObject bodyArmourPrefab;
+    public GameObject ammoBoxPrefab;
 
     public PathFindingStrategy pathFindingStrategy = new BFS();
 
@@ -26,6 +29,9 @@ public class GameManager : MonoBehaviour {
 
         objectPlacer.PlacePlayer(player);
         enemies = objectPlacer.PlaceEnemies(enemiesPrefabs, 1);
+        objectPlacer.PlaceObject(medKitPrefab);
+        objectPlacer.PlaceObject(bodyArmourPrefab);
+        objectPlacer.PlaceObject(ammoBoxPrefab);
         List<Tile> path = getPath(enemies[0]);
         if (path.Count > 1) {
             path.Reverse();

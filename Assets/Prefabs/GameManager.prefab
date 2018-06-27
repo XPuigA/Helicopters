@@ -60,3 +60,9 @@ MonoBehaviour:
   enemiesPrefabs:
   - {fileID: 1398192944885880, guid: e6ea915dba1a31e448015122093a86c5, type: 2}
   enemies: []
+  medKitPrefab: {fileID: 1083257522052204, guid: 56aef1f8de640654d81fbc7114401131,
+    type: 2}
+  bodyArmourPrefab: {fileID: 1424781791551962, guid: 0e068ae9931f6e645b9d25f10e74d609,
+    type: 2}
+  ammoBoxPrefab: {fileID: 1044390553254922, guid: 18cd7f13b0a34a34990aaae9be04508f,
+    type: 2}

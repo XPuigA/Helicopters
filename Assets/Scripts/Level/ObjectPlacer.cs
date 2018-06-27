@@ -9,4 +9,6 @@ public interface ObjectPlacer {
     GameObject[] PlaceEnemies(GameObject[] enemies, int numberOfEnemies);
 
     GameObject PlacePlayer(GameObject player);
+
+    GameObject PlaceObject(GameObject objectToInstantiate);
 }

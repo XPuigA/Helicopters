@@ -8,6 +8,9 @@ TagManager:
   - Barrel
   - Projectile
   - Floor
+  - AmmoBoxPickUp
+  - BodyArmourPickUp
+  - MedKitPickUp
   layers:
   - Default
   - TransparentFX

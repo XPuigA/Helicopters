@@ -33,4 +33,11 @@ public class SimpleObjectPlacer : ObjectPlacer {
         tiles.Remove(pos);
         return player;
     }
+
+    public GameObject PlaceObject(GameObject objectToInstantiate) {
+        Vector3 pos = this.tiles[Random.Range(0, this.tiles.Count)];
+        GameObject generatedObject = GameObject.Instantiate(objectToInstantiate, pos, Quaternion.identity);
+        tiles.Remove(pos);
+        return generatedObject;
+    }
 }
