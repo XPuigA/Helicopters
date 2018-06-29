@@ -77,7 +77,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.063
 --- !u!114 &114795097309258728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletHole: {fileID: 1335140804218566, guid: 41bad87aeea7c1f4baff066c0cbdc592, type: 2}
-  speed: 100
+  speed: 1
 --- !u!212 &212305700448347754
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -123,8 +123,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -711890635
-  m_SortingLayer: 1
+  m_SortingLayerID: -2013942585
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 329570169bf589f4d81a6cd4695c5ab5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

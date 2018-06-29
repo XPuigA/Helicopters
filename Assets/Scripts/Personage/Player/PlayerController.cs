@@ -24,6 +24,10 @@ public class PlayerController : Personage {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         soundManager = soundManagerGameObject.GetComponent<AudioSource>();
+
+        currentLife = baseLife;
+        maxLife = baseLife;
+        currentArmour = 0;
     }
 	
 	// Update is called once per frame
@@ -58,5 +62,25 @@ public class PlayerController : Personage {
 
     public override void Hit(Projectile hitter) {
         throw new System.NotImplementedException();
+    }
+
+    public void applyPickUp(MedKitPickUp medKitPickUp) {
+        Debug.Log("MEDKIT");
+        currentLife += medKitPickUp.amount;
+        if (currentLife > maxLife) {
+            currentLife = maxLife;
+        }
+    }
+
+    public void applyPickUp(BodyArmourPickUp bodyArmourPickUp) {
+        Debug.Log("ARMOUR");
+        currentArmour += bodyArmourPickUp.amount;
+        if (currentArmour > maxArmour) {
+            currentArmour = maxArmour;
+        }
+    }
+
+    public void applyPickUp(AmmoBoxPickUp ammoBoxPickUp) {
+        Debug.Log("AMMO");
     }
 }

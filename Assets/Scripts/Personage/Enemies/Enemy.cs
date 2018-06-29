@@ -12,6 +12,10 @@ public class Enemy : Personage {
     private List<Vector3> path = new List<Vector3>();
 
     void Start () {
+        maxLife = baseLife;
+        maxArmour = baseArmour;
+        currentLife = baseLife;
+        currentArmour = 0;
         rb = GetComponent<Rigidbody2D>();
     }
 	
@@ -71,7 +75,7 @@ public class Enemy : Personage {
     }
 
     public override void Hit(Projectile hitter) {
-        
+        Debug.Log("Hit");
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class AmmoBoxPickUp : PickUp {
 
-    protected override void ApplyEffect(GameObject receiver) {
-        Debug.Log("AmmoBox");
+    void Start() {
+        amount = 25;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected override void ApplyEffect(GameObject receiver) {
+        receiver.GetComponent<PlayerController>().applyPickUp(this);
+        Destroy(this);
+    }
+
 }

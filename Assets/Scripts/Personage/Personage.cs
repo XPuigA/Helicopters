@@ -4,15 +4,14 @@ using UnityEngine;
 
 public abstract class Personage : MonoBehaviour, Hittable {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int baseLife;
+    public int baseArmour;
+
+    protected int maxLife;
+    protected int maxArmour;
+
+    protected int currentLife;
+    protected int currentArmour;
 
     public Vector3 GetTilePosition() {
         RaycastHit2D hits;

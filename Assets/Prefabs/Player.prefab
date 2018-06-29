@@ -108,7 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cd1bcfabb538643980a90d795085ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  baseLife: 100
+  baseArmour: 0
+  movementSpeed: 2
   weapon: {fileID: 1686803569210880, guid: ee89404bd969e174aa3bc070e923e835, type: 2}
   soundManagerGameObject: {fileID: 0}
   stepsSound: {fileID: 8300000, guid: 57b44ad5b62fa9047a878b6d8924b769, type: 3}
