@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour {
-
-    public float speed;
+        
     public GameObject projectile;
+    public float damage;
+    public float speed;
 
 	public void ShootAt(GameObject target)
     {
@@ -20,7 +21,7 @@ public class Weapon : MonoBehaviour {
     public void ShootAt(Vector3 target)
     {
         GameObject go = Instantiate(projectile, transform.position, Quaternion.identity);
-        go.GetComponent<Projectile>().SetTarget(target);
+        go.GetComponent<Projectile>().Initialize(target, speed, damage);
     }
 
     public void ShootAtMouseDirection(Vector3 origin)
@@ -34,6 +35,6 @@ public class Weapon : MonoBehaviour {
                                 origin + (Vector3)(direction * 0.5f),
                                 Quaternion.identity);
         // Adds velocity to the bullet
-        bullet.GetComponent<Rigidbody2D>().velocity = direction * speed;
+        bullet.GetComponent<Projectile>().Initialize(direction, speed, damage);
     }
 }

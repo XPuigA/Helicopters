@@ -74,8 +74,11 @@ public class Enemy : Personage {
         this.path = path;
     }
 
+
+
     public override void Hit(Projectile hitter) {
-        Debug.Log("Hit");
+        Debug.Log("Hit " + hitter.Damage.ToString());
+        Debug.Log("Killed: " + !TakeDamage(hitter.Damage));
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
