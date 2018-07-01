@@ -6,12 +6,12 @@ public class Enemy : Personage {
 
     public float movementSpeed;
     public float rotationSpeed;
-    public GameObject player;
     public GameObject weaponGameObject;
 
     public float sightDistance;
     public float weaponCooldownTime;
 
+    private GameObject player;
     private Weapon weapon;
     private Vector3 destination = Vector3.negativeInfinity;
     private Rigidbody2D rb;
@@ -28,12 +28,15 @@ public class Enemy : Personage {
         rb = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         weapon = weaponGameObject.gameObject.GetComponent<Weapon>();
-    }
+        player = GameManager.instance.player;
+}
 	
 	void FixedUpdate () {
-        Move();
-        Rotate();
-        Shoot();
+        if (alive) {
+            Move();
+            Rotate();
+            Shoot();
+        }
     }
 
     void Move() {
@@ -77,7 +80,6 @@ public class Enemy : Personage {
 
     void Shoot() {
         if (PlayerInSight() && time <= 0) {
-            Debug.Log("Player in sight");
             time = weaponCooldownTime;
             Vector2 direction = (Vector2)((player.transform.position - transform.position));
             direction.Normalize();
@@ -87,9 +89,7 @@ public class Enemy : Personage {
     }
 
     public void SetDestination(Vector3 destination) {
-        Debug.Log("Setting");
         this.destination = destination;
-        Debug.Log("Destination " + this.destination);
     }
 
     public void SetDestination(Tile destination) {
@@ -109,8 +109,7 @@ public class Enemy : Personage {
     }
 
     public override void Hit(Projectile hitter) {
-        Debug.Log("Hit " + hitter.Damage.ToString());
-        Debug.Log("Killed: " + !TakeDamage(hitter.Damage));
+        TakeDamage(hitter.Damage);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

@@ -16,32 +16,26 @@ public class BarrelController : MonoBehaviour, Hittable {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Enter");
-        if (other.gameObject.GetComponent<GunController>() != null)
-        {
+    private void OnTriggerEnter2D(Collider2D other) {
+        
+        if (other.gameObject.GetComponent<GunController>() != null) {
             other.gameObject.GetComponent<GunController>().Visit(gameObject);
         }        
-        else if (other.gameObject.GetComponent<Projectile>() != null)
-        {
+        else if (other.gameObject.GetComponent<Projectile>() != null) {
             Debug.Log("Hitted");
             other.gameObject.GetComponent<Projectile>().Visit(gameObject);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
+    private void OnTriggerStay2D(Collider2D other) {
         //Debug.Log("Stay");
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
+    private void OnTriggerExit2D(Collider2D other) {
         //Debug.Log("Exit");
     }
 
-    public void Hit(Projectile hitter)
-    {
+    public void Hit(Projectile hitter) {
         GameObject toInstantiate = Instantiate(hitter.bulletHole, transform);
         SpriteRenderer toInstantiateRenderer = toInstantiate.GetComponent<SpriteRenderer>();
         float sizeX = spriteRenderer.bounds.size[0] - toInstantiateRenderer.bounds.size[0];

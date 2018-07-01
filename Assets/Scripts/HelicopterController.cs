@@ -20,13 +20,11 @@ public class HelicopterController : MonoBehaviour {
         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f);
         rb.AddForce(movement * movementSpeed);
         
-        if (Input.GetKey(KeyCode.Q))
-        {
+        if (Input.GetKey(KeyCode.Q)) {
             transform.Rotate(new Vector3(0f, 0f, rotationSpeed) * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.E))
-        {
+        if (Input.GetKey(KeyCode.E)) {
             transform.Rotate(new Vector3(0f, 0f, -rotationSpeed) * Time.deltaTime);
         }
     }

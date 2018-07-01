@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Rotator : MonoBehaviour
 {
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         Rotation();
     }
 

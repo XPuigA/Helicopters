@@ -6,8 +6,7 @@ public class TailRotor : Rotator {
 
     public float speed = 45f;
 
-    public override void Rotation()
-    {
+    public override void Rotation() {
         transform.Rotate(new Vector3(0f, speed, 0f) * Time.deltaTime);
     }
 }

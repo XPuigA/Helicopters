@@ -13,8 +13,7 @@ public class BulletHoles : MonoBehaviour {
         spriteRenderer.sprite = getRandomSprite();
 	}
 
-    private Sprite getRandomSprite()
-    {
+    private Sprite getRandomSprite() {
         return sprites[Random.Range(0, sprites.Count)];
     }
 }

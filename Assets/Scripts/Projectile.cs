@@ -18,22 +18,17 @@ public abstract class Projectile : MonoBehaviour {
     }
 
     void Update () {
-        Debug.Log("Entra projectile");
-        if (!target.Equals(Vector3.negativeInfinity))
-        {
+        if (!target.Equals(Vector3.negativeInfinity)) {
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target, step);
         }
         else {
-            Debug.Log("Moving " + direction + "  " + speed);
             this.GetComponent<Rigidbody2D>().velocity = direction * speed;
         }
     }
 
-    public void Visit(GameObject other)
-    {
-        if (other.GetComponent<Hittable>() != null)
-        {
+    public void Visit(GameObject other) {
+        if (other.GetComponent<Hittable>() != null) {
             other.GetComponent<Hittable>().Hit(this);
             Destroy(gameObject);
         }

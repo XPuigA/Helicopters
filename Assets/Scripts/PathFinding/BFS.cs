@@ -14,11 +14,9 @@ public class BFS : PathFindingStrategy {
     }
 
     public bool HasPath(Dictionary<Vector3, Tile> map, Tile origin, Tile destination) {
-        Debug.Log("finding");
         return doPathFinding(map, origin, destination, false).Count > 0;
     }
-
-
+    
     private List<Tile> doPathFinding(Dictionary<Vector3, Tile> map, Tile origin, Tile destination, bool returnPath) {
         // key = position, value = from where we get there
         Dictionary<Vector3, Vector3> visited = new Dictionary<Vector3, Vector3>(map.Count);

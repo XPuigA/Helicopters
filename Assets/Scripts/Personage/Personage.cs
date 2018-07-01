@@ -29,6 +29,7 @@ public abstract class Personage : MonoBehaviour, Hittable {
     public void Kill() {
         alive = false;
         Destroy(gameObject);
+        Destroy(this);
     }
 
     public bool TakeDamage(float damage) {

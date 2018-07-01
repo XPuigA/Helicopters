@@ -1,8 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+
+    public static GameManager instance = null;
+
+    public Text text;
 
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
@@ -28,8 +34,7 @@ public class GameManager : MonoBehaviour {
         objectPlacer = new SimpleObjectPlacer(levelGenerator.GetTiles());
 
         objectPlacer.PlacePlayer(player);
-        enemies = objectPlacer.PlaceEnemies(enemiesPrefabs, 1);
-        enemies[0].GetComponent<Enemy>().player = player;
+        enemies = objectPlacer.PlaceEnemies(enemiesPrefabs, 1);        
         objectPlacer.PlaceObject(medKitPrefab);
         objectPlacer.PlaceObject(bodyArmourPrefab);
         objectPlacer.PlaceObject(ammoBoxPrefab);
@@ -40,7 +45,30 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    void Awake() {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+
+    }
+
     void Update() {
+        if (player.GetComponent<PlayerController>().alive && EnemiesAlive() == 0) {
+            text.text = "YOU WIN!";
+        }
+        else if (!player.GetComponent<PlayerController>().alive) {
+            text.text = "YOU LOSE!";
+        }
+    }
+
+    private int EnemiesAlive() {
+        int count = 0;
+        foreach (GameObject enemy in enemies) {
+            if (enemy != null && enemy.GetComponent<Enemy>().alive) count++;
+        }
+        return count;
     }
 
     private void hasPath(GameObject enemy) {
