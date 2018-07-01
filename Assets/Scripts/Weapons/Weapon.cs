@@ -29,7 +29,10 @@ public class Weapon : MonoBehaviour {
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (Vector2)((worldMousePos - origin));
         direction.Normalize();
-        // Creates the bullet locally
+        ShootAtDirection(origin, direction);
+    }
+
+    public void ShootAtDirection(Vector3 origin, Vector3 direction) {
         GameObject bullet = (GameObject)Instantiate(
                                 projectile,
                                 origin + (Vector3)(direction * 0.5f),

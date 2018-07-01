@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
         objectPlacer.PlacePlayer(player);
         enemies = objectPlacer.PlaceEnemies(enemiesPrefabs, 1);
+        enemies[0].GetComponent<Enemy>().player = player;
         objectPlacer.PlaceObject(medKitPrefab);
         objectPlacer.PlaceObject(bodyArmourPrefab);
         objectPlacer.PlaceObject(ammoBoxPrefab);

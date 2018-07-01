@@ -16,7 +16,6 @@ public class PlayerController : Personage {
     private Weapon mainWeapon;
     private AudioSource soundManager;
     
-
     // Use this for initialization
     void Start () {
         animator = gameObject.GetComponent<Animator>();
@@ -60,8 +59,15 @@ public class PlayerController : Personage {
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.GetComponent<Projectile>() != null) {
+            other.gameObject.GetComponent<Projectile>().Visit(gameObject);
+        }
+    }
+
     public override void Hit(Projectile hitter) {
-        throw new System.NotImplementedException();
+        Debug.Log("Hit " + hitter.Damage.ToString());
+        Debug.Log("Killed: " + !TakeDamage(hitter.Damage));
     }
 
     public void applyPickUp(MedKitPickUp medKitPickUp) {

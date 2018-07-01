@@ -11,6 +11,7 @@ TagManager:
   - AmmoBoxPickUp
   - BodyArmourPickUp
   - MedKitPickUp
+  - Enemy
   layers:
   - Default
   - TransparentFX

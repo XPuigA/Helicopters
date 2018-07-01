@@ -18,12 +18,14 @@ public abstract class Projectile : MonoBehaviour {
     }
 
     void Update () {
+        Debug.Log("Entra projectile");
         if (!target.Equals(Vector3.negativeInfinity))
         {
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target, step);
         }
         else {
+            Debug.Log("Moving " + direction + "  " + speed);
             this.GetComponent<Rigidbody2D>().velocity = direction * speed;
         }
     }
@@ -35,20 +37,6 @@ public abstract class Projectile : MonoBehaviour {
             other.GetComponent<Hittable>().Hit(this);
             Destroy(gameObject);
         }
-    }
-
-    public void Initialize(GameObject target, float speed, float damage) {
-        Initialize(target.transform, speed, damage);
-        
-    }
-
-    public void Initialize(Transform target, float speed, float damage) {
-        Initialize(target.position, speed, damage);
-    }
-
-    public void Initialize(Vector3 target, float speed, float damage) {
-        SetTarget(target);
-        
     }
 
     public void Initialize(float speed, float damage) {

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58312552434942680}
   m_Layer: 9
   m_Name: Dalek
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,8 +91,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseLife: 100
   baseArmour: 0
+  alive: 1
   movementSpeed: 3
   rotationSpeed: 5
+  player: {fileID: 0}
+  weaponGameObject: {fileID: 1686803569210880, guid: ee89404bd969e174aa3bc070e923e835,
+    type: 2}
+  sightDistance: 5
+  weaponCooldownTime: 2
 --- !u!212 &212031164978967178
 SpriteRenderer:
   m_ObjectHideFlags: 1
