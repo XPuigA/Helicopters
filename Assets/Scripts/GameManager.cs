@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -50,17 +51,24 @@ public class GameManager : MonoBehaviour {
             instance = this;
         else if (instance != this)
             Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
     }
 
     void Update() {
-        if (player.GetComponent<PlayerController>().alive && EnemiesAlive() == 0) {
+        if (player && player.GetComponent<PlayerController>().alive && EnemiesAlive() == 0) {
             text.text = "YOU WIN!";
         }
-        else if (!player.GetComponent<PlayerController>().alive) {
+        else if (player && !player.GetComponent<PlayerController>().alive) {
             text.text = "YOU LOSE!";
         }
+
+        StartCoroutine(BackToMainMenu(10));
+    }
+
+    IEnumerator BackToMainMenu(float delay) {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
     private int EnemiesAlive() {

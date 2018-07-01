@@ -25,7 +25,6 @@ public class SimpleGenerator : LevelGenerator {
         map = new Dictionary<Vector3, Tile>(numberOfTiles);
         spriteSize = 1f;
         parent = new GameObject("Level").transform;
-        //Generate();
     }
 
     public Dictionary<Vector3, Tile> Generate() {
