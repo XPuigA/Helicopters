@@ -58,12 +58,12 @@ public class GameManager : MonoBehaviour {
     void Update() {
         if (player && player.GetComponent<PlayerController>().alive && EnemiesAlive() == 0) {
             text.text = "YOU WIN!";
+            StartCoroutine(BackToMainMenu(10));
         }
         else if (player && !player.GetComponent<PlayerController>().alive) {
             text.text = "YOU LOSE!";
+            StartCoroutine(BackToMainMenu(10));
         }
-
-        StartCoroutine(BackToMainMenu(10));
     }
 
     IEnumerator BackToMainMenu(float delay) {
